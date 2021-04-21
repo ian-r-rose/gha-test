@@ -2,14 +2,14 @@ name: Test
 
 on:
   schedule:
-    - cron: '29 * * * *'  # Once a day integration tests
+    - cron: '33 * * * *'  # Once a day integration tests
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Set daily-run env
-        if: github.event.schedule=='10 * * * *'
+        if: github.event.schedule=='33 * * * *'
         run: echo SLOW_TESTS=true >> $GITHUB_ENV
 
       - name: Check daily-run env
