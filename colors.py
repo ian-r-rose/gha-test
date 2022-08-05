@@ -1,8 +1,6 @@
-# SGR color constants
-# rene-d 2018
-
 class Colors:
-    """ ANSI color codes """
+    """ANSI color codes"""
+
     BLACK = "\033[0;30m"
     RED = "\033[0;31m"
     GREEN = "\033[0;32m"
@@ -27,20 +25,9 @@ class Colors:
     NEGATIVE = "\033[7m"
     CROSSED = "\033[9m"
     END = "\033[0m"
-    # cancel SGR codes if we don't write to a terminal
-    if not __import__("sys").stdout.isatty():
-        for _ in dir():
-            if isinstance(_, str) and _[0] != "_":
-                locals()[_] = ""
-    else:
-        # set Windows console in VT mode
-        if __import__("platform").system() == "Windows":
-            kernel32 = __import__("ctypes").windll.kernel32
-            kernel32.SetConsoleMode(kernel32.GetStdHandle(-11), 7)
-            del kernel32
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     for i in dir(Colors):
         if i[0:1] != "_" and i != "END":
             print("{:>16} {}".format(i, getattr(Colors, i) + i + Colors.END))
