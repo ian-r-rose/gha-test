@@ -2,14 +2,22 @@ name: Test
 
 on: push
 
+defaults:
+  # Required shell entrypoint to have properly activated conda environments
+  run:
+    shell: bash -l {0}
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      FORCE_COLOR: "1"
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - name: Set up environment
+        uses: conda-incubator/setup-miniconda@v2
         with:
-          python-version: '3.10'
-      - run: python colors.py
+          miniforge-variant: Mambaforge
+          use-mamba: true
+          python-version: "3.10"
+          environment-file: environment.yml
+      - name: Run script
+        run: python report.py
